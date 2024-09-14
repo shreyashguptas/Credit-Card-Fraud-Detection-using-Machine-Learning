@@ -2,5 +2,6 @@
 *.csv
 
 .venv
+.conda
 
 credit-fraud-dealing-with-imbalanced-datasets.ipynb

@@ -1,7 +1,6 @@
 .csv
 *.csv
 
-.venv
 .conda
 
-credit-fraud-dealing-with-imbalanced-datasets.ipynb
+.DS_Store

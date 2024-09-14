@@ -6,6 +6,38 @@ This project focuses on detecting credit card fraud using machine learning techn
 
 The dataset can be found on Kaggle: [Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data)
 
+# Data Dictionary
+
+| Column | Description |
+|--------|-------------|
+| Time | Seconds elapsed between each transaction and the first transaction in the dataset. |
+| V1-V28 | Principal components obtained through PCA on the original features. Due to confidentiality, the exact nature of these components is not disclosed. |
+| Amount | The transaction amount. Can be used for cost-sensitive analysis or to identify patterns related to transaction amounts. |
+| Class | The response variable indicating the legitimacy of the transaction (1 for fraud, 0 otherwise). |
+
+## Dataset Characteristics
+
+- Contains transactions made by credit cards in September 2013 by European cardholders.
+- Comprises 284,807 transactions over two days, with 492 fraudulent cases.
+- The dataset is highly imbalanced, with fraudulent transactions accounting for only 0.172% of all transactions.
+
+## Evaluation Recommendations
+
+- Given the class imbalance, traditional accuracy metrics may not be meaningful.
+- It's recommended to use metrics like the Area Under the Precision-Recall Curve (AUPRC).
+- Focus on precision and recall to evaluate the performance of fraud detection models.
+
+## Implications for Analysis
+
+### Data Preprocessing
+- Consider techniques to handle the imbalanced dataset, such as resampling methods.
+- Feature scaling may be necessary for the Amount and Time variables if algorithms used are sensitive to feature scales.
+
+### Modeling Approaches
+- Algorithms that perform well with imbalanced data, such as anomaly detection models, might be appropriate.
+- Ensemble methods like Random Forests or Gradient Boosting Machines can also be effective.
+- Incorporate cross-validation to ensure the robustness of your model.
+
 ## Code Inspiration
 
 The code in this project is inspired by the following Kaggle notebook: [Credit Fraud || Dealing with Imbalanced Datasets](https://www.kaggle.com/code/janiobachmann/credit-fraud-dealing-with-imbalanced-datasets)
@@ -49,14 +81,28 @@ The project follows these steps:
 
 ## Conclusions
 
-Based on the analysis and experiments conducted in this project, the following conclusions can be drawn:
+This analysis highlights the effectiveness of various techniques in enhancing fraud detection for imbalanced datasets:
 
-- Handling imbalanced datasets is crucial for building effective fraud detection models. Techniques like undersampling and oversampling (SMOTE) can help mitigate the class imbalance problem.
+1. **Best Performing Model**: The Logistic Regression classifier trained on SMOTE-oversampled data achieved the highest accuracy of 98.56% on the test set.
+   - This outperformed the undersampling approach, which achieved 94.71% accuracy.
 
-- Neural networks, particularly the oversampled model, demonstrate promising results in detecting fraudulent transactions.
+2. **Neural Network Performance**:
+   - The neural network model trained on SMOTE data showed excellent results.
+   - After outlier removal, it achieved 99.93% accuracy, a slight improvement of 0.01 percentage points.
 
-- Outlier removal can potentially improve the accuracy of the fraud detection model. By removing outliers using the Z-score method, the model's performance on the test set is enhanced.
+3. **Fraud Detection Metrics**:
+   - The SMOTE-based neural network demonstrated high effectiveness in identifying fraud:
+     - Recall: 93.81% (106 out of 113 fraud cases correctly identified)
+     - Precision: 88.33% (106 true positives out of 120 predicted positives)
 
-It's important to note that the predictions and accuracies may vary due to data shuffling implemented in the code. The main objective is to assess the models' ability to correctly classify fraudulent and non-fraudulent transactions.
+4. **Key Insights**:
+   - Addressing class imbalance is crucial for improving model performance.
+   - Careful feature engineering plays a significant role in fraud detection tasks.
 
-For more details on the code and analysis, please refer to the `fraud-detection.ipynb` notebook.
+5. **Real-world Application**:
+   - It's important to note that in practical scenarios, model performance should be continuously monitored and updated.
+   - This ongoing process ensures adaptation to evolving fraud patterns.
+
+These results demonstrate the potential of machine learning in credit card fraud detection while emphasizing the need for dynamic, adaptive approaches in real-world implementations.
+
+**Note:** One last thing, predictions and accuracies may be subjected to change since I implemented data shuffling on both types of dataframes. The main thing is to see if our models are able to correctly classify no fraud and fraud transactions.
